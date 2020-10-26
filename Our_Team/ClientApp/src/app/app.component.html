@@ -1,0 +1,71 @@
+<!--<body>
+<app-nav-menu></app-nav-menu>
+<div class="container">
+  <router-outlet>111</router-outlet>
+</div>
+</body>-->
+
+
+
+<h1>Our Team</h1>
+<input type="button" value="Add" class="btn btn-default" (click)="add()" />
+<table *ngIf="tableMode; else create" class="table table-striped">
+  <thead>
+    <tr>
+      <td>First Name</td>
+      <td>Last Name</td>
+      <td>Position</td>
+      <td></td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let t of teamMembers">
+      <ng-template [ngIf]="teamMember?.id != t.id" [ngIfElse]="edit">
+        <td>{{t?.firstName}}</td>
+        <td>{{t?.lastName}}</td>
+        <td>{{t?.position}}</td>
+        <td>
+          <button class="btn btn-sm btn-primary" (click)="editTeamMember(t)">Edit</button>
+          <button class="btn btn-sm btn-danger" (click)="delete(p)">Delete</button>
+        </td>
+      </ng-template>
+    </tr>
+  </tbody>
+</table>
+
+
+<ng-template #edit>
+  <td>
+    <input type="text" [(ngModel)]="teamMember.firstName" class="form-control" />
+  </td>
+  <td>
+    <input type="text" [(ngModel)]="teamMember.lastName" class="form-control" />
+  </td>
+  <td>
+    <input type="text" [(ngModel)]="teamMember.position" class="form-control" />
+  </td>
+  <td>
+    <input type="button" value="Save" (click)="save()" class="btn btn-sm btn-success" />
+    <input type="button" value="Cancel" (click)="cancel()" class="btn btn-sm btn-warning" />
+  </td>
+</ng-template>
+
+
+<ng-template #create>
+  <div class="form-group">
+    <label>First Name</label>
+    <input type="text" [(ngModel)]="teamMember.firstName" class="form-control" />
+  </div>
+  <div class="form-group">
+    <label>Last Name</label>
+    <input type="text" [(ngModel)]="teamMember.lastName" class="form-control" />
+  </div>
+  <div class="form-group">
+    <label>Position</label>
+    <input type="number" [(ngModel)]="teamMember.position" class="form-control" />
+  </div>
+  <div>
+    <input type="button" value="Save" (click)="save()" class="btn btn-success" />
+    <input type="button" value="Cancel" (click)="cancel()" class="btn btn-warning" />
+  </div>
+</ng-template>
